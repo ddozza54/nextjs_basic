@@ -1,12 +1,35 @@
+import { useEffect, useState } from 'react';
 import Seo from '@/components/Seo';
-import Head from 'next/head';
 //head 컴포넌트 안에 들어가는 모든게 html head 안에 들어감
 
+const API_KEY = "14dea7da566e33badd6e7eacd4c721b4";
+
 export default function Home() {
+    const [movies, setMovies] = useState([]);
+    useEffect(() => {
+        const options = {
+            method: 'GET',
+            headers: {
+                accept: 'application/json',
+                Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxNGRlYTdkYTU2NmUzM2JhZGQ2ZTdlYWNkNGM3MjFiNCIsInN1YiI6IjY0Njg4YWRiYTUwNDZlMDEyNDY3YTQwNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.SHS2ccg3VvUJc0UbSNtnCxs2XEocQW0MRBRml5hNvtE'
+            }
+        };
+        (async () => {
+            const { results } = await (await fetch('https://api.themoviedb.org/3/movie/popular?language=en-US&page=1', options)).json()
+            setMovies(results)
+        })();
+
+    })
     return (
         <div>
             <Seo title="Home" />
             <h1>Home</h1>
+            {/* !movie 라고 하면 빈 배열이 falsy 값이 아니기 때문에 length 가 0 인 경우로 해줘야한다. */}
+            {movies.length === 0 && <h4>Loading...</h4>}
+            {movies?.map(movie =>
+                <div key={movie.id}>
+                    <h4>{movie.original_title}</h4>
+                </div>)}
         </div>
 
     )
