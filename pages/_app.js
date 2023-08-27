@@ -8,10 +8,7 @@ export default function MyApp({ Component, pageProps }) {
             <Component {...pageProps} />
             {/* 글로벌 코드를 적용하는 법 : global 을 써준다.  */}
             <style jsx global>{`
-            nav{
-                background-color:teal;
-
-            }`}</style>
+      `}</style>
         </Layout>
     )
 }
