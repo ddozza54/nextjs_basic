@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react';
 import Seo from '@/components/Seo';
 //head 컴포넌트 안에 들어가는 모든게 html head 안에 들어감
 
-const API_KEY = "14dea7da566e33badd6e7eacd4c721b4";
-
 export default function Home() {
     const [movies, setMovies] = useState([]);
     useEffect(() => {
@@ -15,7 +13,7 @@ export default function Home() {
             }
         };
         (async () => {
-            const { results } = await (await fetch('https://api.themoviedb.org/3/movie/popular?language=en-US&page=1', options)).json()
+            const { results } = await (await fetch(`/api/movies`, options)).json()
             setMovies(results)
         })();
 
