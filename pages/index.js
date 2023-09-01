@@ -9,7 +9,7 @@ export default function Home({ results }) {
             {/* !movie 라고 하면 빈 배열이 falsy 값이 아니기 때문에 length 가 0 인 경우로 해줘야한다. */}
             {results?.map(movie =>
                 <div key={movie.id} className="movie">
-                    <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} />
+                    <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
                     <h4>{movie.original_title}</h4>
                 </div>)}
             <style jsx>{`
@@ -19,17 +19,22 @@ export default function Home({ results }) {
           padding: 20px;
           gap: 20px;
         }
+        .movie{
+            cursor: pointer;
+        }
  .movie img {
           max-width: 100%;
           border-radius: 12px;
           transition: transform 0.2s ease-in-out;
           box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
         }
+        .movie:hover img{
+transform: scale(1.05) translate(-5px);
+        }
 `}</style>
         </div>
     )
 }
-
 
 //이 함수 이름은 고정!
 //backend 에서만 동작하는 함수이기 때문에 client 에서 관여 X
