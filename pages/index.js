@@ -7,13 +7,7 @@ import { useRouter } from 'next/router';
 export default function Home({ results }) {
     const router = useRouter();
     const onClick = (id, title) => {
-        router.push({
-            pathname: `/movies/${id}`,
-            query: {
-                title,
-            },
-        },
-            `movies/${id}`)
+        router.push(`/movies/${title}/${id}`)
     }
     return (
         <div className='container'>
@@ -26,35 +20,29 @@ export default function Home({ results }) {
                 >
                     <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
                     <h4>{movie.original_title}</h4>
-                    <Link href={{
-                        pathname: `/moives/${movie.id}`,
-                        query: {
-                            title: movie.original_title
-                        },
-                    }} as={`/movies/${movie.id}`}
-                    >
+                    <Link href={`/movies/${movie.original_title}/${movie.id}`}>
                     </Link>
                 </div>
             )
             }
             <style jsx>{`
-             .container {
+                        .container {
           display: grid;
-          grid-template-columns: 1fr 1fr;
-          padding: 20px;
-          gap: 20px;
+                    grid-template-columns: 1fr 1fr;
+                    padding: 20px;
+                    gap: 20px;
         }
-        .movie{
-            cursor: pointer;
+                    .movie{
+                        cursor: pointer;
         }
- .movie img {
-          max-width: 100%;
-          border-radius: 12px;
-          transition: transform 0.2s ease-in-out;
-          box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+                    .movie img {
+                        max - width: 100%;
+                    border-radius: 12px;
+                    transition: transform 0.2s ease-in-out;
+                    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
         }
-        .movie:hover img{
-transform: scale(1.05) translate(-5px);
+                    .movie:hover img{
+                        transform: scale(1.05) translate(-5px);
         }
 `}</style>
         </div >
