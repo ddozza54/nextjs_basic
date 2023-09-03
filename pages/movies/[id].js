@@ -13,7 +13,7 @@ export default function Detail() {
      */
     return (
         <div>
-            Detail
+            <h4>{router.query.title || "Loading..."}</h4>
         </div>
     );
 }

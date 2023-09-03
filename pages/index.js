@@ -1,17 +1,42 @@
 import { useEffect, useState } from 'react';
 import Seo from '@/components/Seo';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 //head 컴포넌트 안에 들어가는 모든게 html head 안에 들어감
 
 export default function Home({ results }) {
+    const router = useRouter();
+    const onClick = (id, title) => {
+        router.push({
+            pathname: `/movies/${id}`,
+            query: {
+                title,
+            },
+        },
+            `movies/${id}`)
+    }
     return (
         <div className='container'>
             <Seo title="Home" />
             {/* !movie 라고 하면 빈 배열이 falsy 값이 아니기 때문에 length 가 0 인 경우로 해줘야한다. */}
             {results?.map(movie =>
-                <div key={movie.id} className="movie">
+                <div
+                    onClick={() => onClick(movie.id, movie.original_title)}
+                    key={movie.id} className="movie"
+                >
                     <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
                     <h4>{movie.original_title}</h4>
-                </div>)}
+                    <Link href={{
+                        pathname: `/moives/${movie.id}`,
+                        query: {
+                            title: movie.original_title
+                        },
+                    }} as={`/movies/${movie.id}`}
+                    >
+                    </Link>
+                </div>
+            )
+            }
             <style jsx>{`
              .container {
           display: grid;
@@ -32,7 +57,7 @@ export default function Home({ results }) {
 transform: scale(1.05) translate(-5px);
         }
 `}</style>
-        </div>
+        </div >
     )
 }
 
